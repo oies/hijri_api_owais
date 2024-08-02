@@ -2,7 +2,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from hijri_converter import convert
 from datetime import datetime
-import json
 
 app = FastAPI()
 
@@ -15,6 +14,8 @@ app.add_middleware(
     allow_headers=["*"],  # السماح بجميع الرؤوس
 )
 
+
+
 @app.get("/")
 def get_hijri_date():
     # الحصول على التاريخ الميلادي الحالي
@@ -25,18 +26,15 @@ def get_hijri_date():
     
     # استخراج اليوم والشهر والسنة الهجرية
     hijri_day = hijri_date.day
-    hijri_month = hijri_date.month  # استخدام رقم الشهر
+    hijri_month = hijri_date.month
     hijri_year = hijri_date.year
     
     # إنشاء استجابة تحتوي على التاريخ الهجري
-    response = {
+    return {
         "hijri_day": hijri_day,
         "hijri_month": hijri_month,
         "hijri_year": hijri_year
     }
-    
-    # تحويل الاستجابة إلى JSON مع التأكد من الترميز الصحيح
-    return json.dumps(response, ensure_ascii=False)
 
 if __name__ == "__main__":
     import uvicorn
