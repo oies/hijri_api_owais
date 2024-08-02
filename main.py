@@ -14,7 +14,14 @@ app.add_middleware(
     allow_headers=["*"],  # السماح بجميع الرؤوس
 )
 
-@app.get("/hijri-date")
+# قائمة بأسماء الشهور الهجرية بالعربية
+hijri_months = [
+    "محرم", "صفر", "ربيع الأول", "ربيع الآخر", 
+    "جمادى الأولى", "جمادى الآخرة", "رجب", "شعبان", 
+    "رمضان", "شوال", "ذو القعدة", "ذو الحجة"
+]
+
+@app.get("/")
 def get_hijri_date():
     # الحصول على التاريخ الميلادي الحالي
     current_date = datetime.now()
@@ -22,9 +29,13 @@ def get_hijri_date():
     # تحويل التاريخ الميلادي إلى هجري
     hijri_date = convert.Gregorian(current_date.year, current_date.month, current_date.day).to_hijri()
     
+    # استخراج اليوم والشهر والسنة الهجرية
+    hijri_day = hijri_date.day
+    hijri_month = hijri_months[hijri_date.month - 1]  # استخدام أسماء الشهور بالعربية
+    hijri_year = hijri_date.year
+    
     # إنشاء استجابة تحتوي على التاريخ الهجري
-    hijri_date_str = {hijri_date.day} - {hijri_date.month} - {hijri_date.year}"
-    return {hijri_date_str}
+    return {"hijri_date": f"{hijri_day} - {hijri_month} - {hijri_year}"}
 
 if __name__ == "__main__":
     import uvicorn
