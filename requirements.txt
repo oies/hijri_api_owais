@@ -2,4 +2,3 @@ fastapi
 uvicorn
 hijri-converter
 datetime
-json
