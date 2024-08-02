@@ -23,8 +23,8 @@ def get_hijri_date():
     hijri_date = convert.Gregorian(current_date.year, current_date.month, current_date.day).to_hijri()
     
     # إنشاء استجابة تحتوي على التاريخ الهجري
-    hijri_date_str = f"{hijri_date.day} - {hijri_date.month} - {hijri_date.year}"
-    return {"hijri_date": hijri_date_str}
+    hijri_date_str = {hijri_date.day} - {hijri_date.month} - {hijri_date.year}"
+    return {hijri_date_str}
 
 if __name__ == "__main__":
     import uvicorn
